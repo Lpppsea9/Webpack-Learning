@@ -30,6 +30,7 @@ module.exports = {
     module: {
         rules: [
             // 去写详细loder配置
+            // 不同文件必须配置不同loader处理
             {
                 // 匹配哪些文件
                 test: /\.css$/,
@@ -41,7 +42,15 @@ module.exports = {
                     // 创建style标签，将js中的样式资源插入进去，添加到head中生效
                     'style-loader',
                     // 将css文件变成commonjs模块加载到js中，里面内容是样式字符串
-                    'css-loader'
+                    'css-loader',
+                ]
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'less-loader'
                 ]
             }
         ]
