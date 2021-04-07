@@ -1,6 +1,6 @@
 // 引入,需要打包的资源都要在index.js这个入口文件引入,不然是无法打包的
-import './iconfont.css';
-import './index.less';
+import '../css/iconfont.css';
+import '../css/index.less';
 
 function add(x, y) {
     return x + y;

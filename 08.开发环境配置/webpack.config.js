@@ -1,14 +1,17 @@
 /* 
     开发环境配置： 能让代码运行
+        运行项目命令:
+            webpcak 会将打包结果输出出去
+            npx webpack dev server 只会在内存中编译打包,没有输出
 */
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {resolve} = require('path')
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/js/index.js',
     output: {
-        filename: 'built.js',
+        filename: 'js/built.js',
         path: resolve(__dirname, 'build') 
     },
     module: {
@@ -22,7 +25,7 @@ module.exports = {
             {
                 // 处理css资源
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader', 'less-loader']
+                use: ['style-loader', 'css-loader']
             },
             {
                 // 处理图片资源(只能处理样式中的img资源,不能处理html中的)
@@ -32,7 +35,8 @@ module.exports = {
                     limit: 8 * 1024,
                     name: '[hash:10].[ext]',
                     // 关闭es6模块化
-                    esModule: false
+                    esModule: false,
+                    outputPath: 'imgs'
                 }
             },
             {
@@ -45,7 +49,8 @@ module.exports = {
                 exclude: /\.(html|js|css|less|jpg|png|gif)/,
                 loader: 'file-loader',
                 options: {
-                    name: '[hash:10].[ext]'
+                    name: '[hash:10].[ext]',
+                    outputPath: 'media'
                 }
             }
         ]
@@ -56,6 +61,7 @@ module.exports = {
             template: './src/index.html'
         })
     ],
+    mode: 'development',
     devServer: {
         contentBase: resolve(__dirname, 'build'),
         // 启动gzip压缩
@@ -63,5 +69,4 @@ module.exports = {
         port: 3000,
         open: true
     },
-    mode: 'development'
 }
